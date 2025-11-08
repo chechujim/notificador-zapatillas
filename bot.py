@@ -6,8 +6,8 @@ import os
 from flask import Flask
 
 # === CONFIGURACIÓN ===
-TELEGRAM_TOKEN = os.getenv("BOT_TOKEN")  # Variable en Render
-CHAT_ID = os.getenv("CHAT_ID")           # Variable en Render
+TELEGRAM_TOKEN = os.getenv("BOT_TOKEN")  # Variable de entorno en Render
+CHAT_ID = os.getenv("CHAT_ID")           # Variable de entorno en Render
 CHECK_INTERVAL = 6 * 60 * 60             # Cada 6 horas (en segundos)
 URL = "https://certcheck.worldathletics.org/FullList"
 FILE_NAME = "zapatillas_previas.json"
@@ -19,7 +19,7 @@ def index():
     return "Bot activo y escuchando 🚀"
 
 def get_zapatillas():
-    """Descarga y analiza la lista de zapatillas desde la web de World Athletics."""
+    """Descarga y analiza la lista de zapatillas desde World Athletics."""
     response = requests.get(URL)
     soup = BeautifulSoup(response.text, "html.parser")
     rows = soup.select("table tbody tr")
