@@ -63,3 +63,34 @@ if __name__ == "__main__":
         except Exception as e:
             print("Error:", e)
         time.sleep(CHECK_INTERVAL)
+import os
+from flask import Flask
+from threading import Thread
+import telegram
+import time
+
+# Variables de entorno
+TOKEN = os.getenv("BOT_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
+
+bot = telegram.Bot(token=TOKEN)
+
+def check_zapatillas():
+    while True:
+        # Aquí tu lógica de scraping / notificación
+        # ejemplo: bot.send_message(chat_id=CHAT_ID, text="Test")
+        time.sleep(60*5)  # cada 5 minutos
+
+# Lanzar el bot en hilo aparte
+Thread(target=check_zapatillas).start()
+
+# Servidor web mínimo para Render
+app = Flask("notificador")
+@app.route("/")
+def home():
+    return "Bot corriendo!"
+
+# Puerto que Render asigna
+port = int(os.environ.get("PORT", 5000))
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=port)
