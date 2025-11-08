@@ -1,3 +1,4 @@
 requests
 beautifulsoup4
 flask
+python-telegram-bot==22.13.2
